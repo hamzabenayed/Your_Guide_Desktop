@@ -27,7 +27,7 @@ public class DesktopFXMain extends Application {
     public void start(Stage primaryStage) {
         this.stage = primaryStage;
         try {
-            Parent parent = FXMLLoader.load(getClass().getResource("/Gui/AfficheReclamation.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/Gui/AfficheLike.fxml"));
             Scene scene = new Scene(parent);
             stage.setScene(scene);
             stage.show();

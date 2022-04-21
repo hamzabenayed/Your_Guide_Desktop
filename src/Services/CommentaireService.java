@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package Services;
-import entities.Reclamation;
+
 import Utils.MyDB;
+import entities.Commentaire;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,21 +16,20 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author asus
  */
-public class ReclamationService {
+public class CommentaireService {
      static Connection cn = MyDB.getInstance().getConnection();
      Statement st;
     
-   //Ajout Reclamation
-        public  void ajoutReclamation(Reclamation  l) 
+   //Ajout Commentaire
+        public  void ajoutCommentaire(Commentaire  l) 
        {           
            
            try {
-               String requete="INSERT INTO Reclamation (type_reclamation,desc_reclamation,date_reclamation,etat) values ('"+l.getType()+"','"+l.getDescription()+"','"+l.getDateRec()+"','"+l.getEtat()+"')";
+               String requete="INSERT INTO Commentaire (description_commentaire,date_commentaire) values ('"+l.getDesc_comm()+"','"+l.getDate_comm()+"')";
               
               
                st = cn.createStatement();
@@ -41,12 +41,12 @@ public class ReclamationService {
        
        }
         
-        //supprimer Reclamation
+        //supprimer Commentaire
          
-            public  void supprimerReclamation(int id) 
+            public  void supprimerCommentaire(int id) 
               {
                      try {
-               cn.createStatement().execute("Delete from Reclamation where id="+id+";");
+               cn.createStatement().execute("Delete from Commentaire where id="+id+";");
                
         } catch (SQLException ex) {
             System.err.println("Error d'suppression"+ex);
@@ -55,11 +55,11 @@ public class ReclamationService {
               }
             
             
-           // modifier Reclamation            
-    public void updateReclamation(Reclamation l, int id ) throws SQLException {
+           // modifier Commentaire            
+    public void updateCommentaire(Commentaire l, int id ) throws SQLException {
          try {
             Statement statement= cn.createStatement();
-            String requete="update Reclamation set type_reclamation='"+l.getType()+"' ,  desc_reclamation='"+l.getDescription()+"' ,  date_reclamation='"+l.getDateRec()+"',etat='"+l.getEtat()+"'where id= '"+id+"'";
+            String requete="update Commentaire set description_commentaire='"+l.getDesc_comm()+"' ,  date_commentaire='"+l.getDate_comm()+"'where id= '"+id+"'";
             statement.executeUpdate(requete);
             System.out.print("Updated !!");
         } catch (SQLException e) {
@@ -70,19 +70,19 @@ public class ReclamationService {
     }
     
     
-    // afficher tous les Reclamations
+    // afficher tous les Commentaires
     
-    public List<Reclamation> listerReclamation(){
-        List<Reclamation> ListR = new ArrayList();
+    public List<Commentaire> listerCommentaire(){
+        List<Commentaire> ListR = new ArrayList();
         
         try {
-            String req = "Select * from `Reclamation`";
+            String req = "Select * from `Commentaire`";
             st = cn.createStatement();
             ResultSet rst = st.executeQuery(req);
              
             while(rst.next()){
                  
-                 Reclamation p = new Reclamation(rst.getInt("id"),rst.getString("type_reclamation"),rst.getString("desc_reclamation"),rst.getString("etat"),rst.getDate("date_reclamation"));
+                 Commentaire p = new Commentaire(rst.getInt("id"),rst.getString("description_commentaire"),rst.getDate("date_commentaire"));
                  ListR.add(p);
             }
             
@@ -90,6 +90,21 @@ public class ReclamationService {
              System.out.println(ex.getMessage());
          }
           return ListR ;
+    }
+    
+        public int getIdCommentaire(String desc) {
+        try {
+            String req ="SELECT id from `Commentaire` WHERE description_commentaire ='"+desc+"'";
+            st = cn.createStatement();
+            ResultSet rst = st.executeQuery(req);
+            if (rst.next()){
+                int i = rst.getInt("id");
+                return i;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CommentaireService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return 0;        
     }
              
     

@@ -4,33 +4,32 @@
  * and open the template in the editor.
  */
 package Services;
-import entities.Reclamation;
+
 import Utils.MyDB;
+import entities.Likes;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /**
  *
  * @author asus
  */
-public class ReclamationService {
-     static Connection cn = MyDB.getInstance().getConnection();
+public class LikesService {
+      static Connection cn = MyDB.getInstance().getConnection();
      Statement st;
     
    //Ajout Reclamation
-        public  void ajoutReclamation(Reclamation  l) 
+        public  void ajoutLike(Likes  l) 
        {           
            
            try {
-               String requete="INSERT INTO Reclamation (type_reclamation,desc_reclamation,date_reclamation,etat) values ('"+l.getType()+"','"+l.getDescription()+"','"+l.getDateRec()+"','"+l.getEtat()+"')";
-              
+               
+               String requete =" INSERT INTO `like`(`commentaire_id`, `nom_like`, `rate`, `note`) VALUES ('"+l.getCom()+"','"+l.getNom_like()+"','"+l.getRate()+"','"+l.getNote()+"')";
+               //String requete="INSERT INTO Like (nom_like,rate,note,commentaire_id) values ('"+l.getNom_like()+"','"+l.getRate()+"','"+l.getNote()+"','"+l.getCom()+"')";
               
                st = cn.createStatement();
                st.executeUpdate(requete);
@@ -43,10 +42,10 @@ public class ReclamationService {
         
         //supprimer Reclamation
          
-            public  void supprimerReclamation(int id) 
+            public  void supprimerLike(int id) 
               {
                      try {
-               cn.createStatement().execute("Delete from Reclamation where id="+id+";");
+               cn.createStatement().execute("Delete from `like` where id="+id+";");
                
         } catch (SQLException ex) {
             System.err.println("Error d'suppression"+ex);
@@ -56,10 +55,10 @@ public class ReclamationService {
             
             
            // modifier Reclamation            
-    public void updateReclamation(Reclamation l, int id ) throws SQLException {
+    public void updateLike(Likes l, int id ) throws SQLException {
          try {
             Statement statement= cn.createStatement();
-            String requete="update Reclamation set type_reclamation='"+l.getType()+"' ,  desc_reclamation='"+l.getDescription()+"' ,  date_reclamation='"+l.getDateRec()+"',etat='"+l.getEtat()+"'where id= '"+id+"'";
+            String requete="update `like` set commentaire_id='"+l.getCom()+"',nom_like='"+l.getNom_like()+"',rate='"+l.getRate()+"',note='"+l.getNote()+"'where id= '"+id+"'";
             statement.executeUpdate(requete);
             System.out.print("Updated !!");
         } catch (SQLException e) {
@@ -72,17 +71,17 @@ public class ReclamationService {
     
     // afficher tous les Reclamations
     
-    public List<Reclamation> listerReclamation(){
-        List<Reclamation> ListR = new ArrayList();
+    public List<Likes> listerLike(){
+        List<Likes> ListR = new ArrayList();
         
         try {
-            String req = "Select * from `Reclamation`";
+            String req = "Select * from `Like`";
             st = cn.createStatement();
             ResultSet rst = st.executeQuery(req);
              
             while(rst.next()){
                  
-                 Reclamation p = new Reclamation(rst.getInt("id"),rst.getString("type_reclamation"),rst.getString("desc_reclamation"),rst.getString("etat"),rst.getDate("date_reclamation"));
+                 Likes p = new Likes(rst.getInt("id"),rst.getInt("commentaire_id"),rst.getString("nom_like"),rst.getInt("rate"),rst.getInt("note"));
                  ListR.add(p);
             }
             
@@ -91,6 +90,5 @@ public class ReclamationService {
          }
           return ListR ;
     }
-             
     
 }
