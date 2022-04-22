@@ -97,18 +97,29 @@ public class AfficheLikeController implements Initializable {
             tfrate.setText(listl.getSelectionModel().getSelectedItem().getRate()+"");
             tfnomlike.setText(listl.getSelectionModel().getSelectedItem().getNom_like());
             tfnote.setText(listl.getSelectionModel().getSelectedItem().getNote()+"");
-           tfcom.setValue(listl.getSelectionModel().getSelectedItem().getCom()+"");
+            tfcom.setValue(listl.getSelectionModel().getSelectedItem().getCom()+"");
 
 
     }
 
     @FXML
     private void ajouter(ActionEvent event) throws IOException {
+        if (nomlike.getText().isEmpty() || tfrate.getText().isEmpty()|| tfnote.getText().isEmpty()|| tfcom.getValue().isEmpty())
+       {
+           Alert alert= new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Remplir les champs vide");
+            alert.show();
+
+       } 
+       else{
+
           LikesService ps = new LikesService();
           CommentaireService ks = new CommentaireService();
+          
 
         Likes p = new Likes(tfnomlike.getText(), Integer.parseInt(tfnote.getText()),Integer.parseInt(tfrate.getText()),ks.getIdCommentaire(tfcom.getValue()));
-        
+         
         try {
 
             ps.ajoutLike(p);   
@@ -141,7 +152,7 @@ public class AfficheLikeController implements Initializable {
         } catch (Exception e) {
          JOptionPane.showMessageDialog(null, "error : "+e.getMessage());
         }
-        
+        } 
     }
 
     @FXML
@@ -180,6 +191,15 @@ public class AfficheLikeController implements Initializable {
 
     @FXML
     private void miseajour(ActionEvent event) {
+         if (nomlike.getText().isEmpty() || tfrate.getText().isEmpty()|| tfnote.getText().isEmpty()|| tfcom.getValue().isEmpty())
+       {
+           Alert alert= new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Remplir les champs vide");
+            alert.show();
+
+       } 
+       else{
          LikesService ps = new LikesService();
          CommentaireService ks = new CommentaireService();
 
@@ -218,6 +238,7 @@ public class AfficheLikeController implements Initializable {
         } catch (Exception e) {
 JOptionPane.showMessageDialog(null, "error : "+e.getMessage());
         }
+         }
     }
  
     private void afficherCommentaireDesc() {

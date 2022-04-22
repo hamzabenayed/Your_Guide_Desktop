@@ -82,6 +82,15 @@ public class AfficheCommentaireController implements Initializable {
 
     @FXML
     private void ajouter(ActionEvent event) throws IOException{
+          if (tfdesccomm.getText().isEmpty() || tfdatecomm.getValue()==null)
+       {
+           Alert alert= new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Remplir les champs vide");
+            alert.show();
+
+       } 
+       else{
         CommentaireService ps = new CommentaireService();
 
         Commentaire p = new Commentaire(tfdesccomm.getText(),Date.valueOf(tfdatecomm.getValue()));
@@ -116,7 +125,7 @@ public class AfficheCommentaireController implements Initializable {
          JOptionPane.showMessageDialog(null, "error : "+e.getMessage());
         }
         
-            
+          }     
       
     }
     
@@ -151,6 +160,15 @@ public class AfficheCommentaireController implements Initializable {
 
     @FXML
     private void miseajour(ActionEvent event) throws IOException{
+           if (tfdesccomm.getText().isEmpty() || tfdatecomm.getValue()==null)
+       {
+           Alert alert= new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Remplir les champs vide");
+            alert.show();
+
+       } 
+       else{
           CommentaireService ps = new CommentaireService();
 
         Commentaire p = new Commentaire(tfdesccomm.getText(), Date.valueOf(tfdatecomm.getValue()));
@@ -183,6 +201,7 @@ public class AfficheCommentaireController implements Initializable {
         } catch (Exception e) {
 JOptionPane.showMessageDialog(null, "error : "+e.getMessage());
         }
+           }
     }
 
     @FXML

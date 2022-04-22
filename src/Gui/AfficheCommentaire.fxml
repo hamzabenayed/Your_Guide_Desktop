@@ -31,12 +31,12 @@
             <TableColumn fx:id="datecomm" prefWidth="75.0" text="Date_Comm" />
         </columns>
       </TableView>
-      <Button layoutX="35.0" layoutY="315.0" mnemonicParsing="false" onAction="#ajouter" text="Ajouter">
+      <Button layoutX="35.0" layoutY="315.0" mnemonicParsing="false" onAction="#ajouter" style="-fx-background-color: green;" text="Ajouter" textFill="#252424">
          <font>
             <Font name="Bauhaus 93" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="supprimerc" layoutX="112.0" layoutY="315.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer">
+      <Button fx:id="supprimerc" layoutX="112.0" layoutY="315.0" mnemonicParsing="false" onAction="#supprimer" style="-fx-background-color: red;" text="Supprimer">
          <font>
             <Font name="Bauhaus 93" size="12.0" />
          </font>

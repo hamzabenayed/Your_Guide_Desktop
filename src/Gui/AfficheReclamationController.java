@@ -93,6 +93,15 @@ public class AfficheReclamationController implements Initializable {
   // Add
     @FXML
     private void ajouter(ActionEvent event)  throws IOException{
+         if (tftyperec.getText().isEmpty() || tfdescrec.getText().isEmpty()|| tfetat.getText().isEmpty()|| tfdaterec.getValue()==null)
+       {
+           Alert alert= new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Remplir les champs vide");
+            alert.show();
+
+       } 
+       else{
           ReclamationService ps = new ReclamationService();
 
         Reclamation p = new Reclamation(tftyperec.getText(), tfdescrec.getText(), Date.valueOf(tfdaterec.getValue()),tfetat.getText());
@@ -127,12 +136,21 @@ public class AfficheReclamationController implements Initializable {
         } catch (Exception e) {
          JOptionPane.showMessageDialog(null, "error : "+e.getMessage());
         }
-        
+         }   
     
 }
    //Update
     @FXML
     private void miseajour(ActionEvent event) throws IOException {
+          if (tftyperec.getText().isEmpty() || tfdescrec.getText().isEmpty()|| tfetat.getText().isEmpty()|| tfdaterec.getValue()==null)
+       {
+           Alert alert= new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Remplir les champs vide");
+            alert.show();
+
+       } 
+       else{
          ReclamationService ps = new ReclamationService();
 
         Reclamation p = new Reclamation(tftyperec.getText(), tfdescrec.getText(), Date.valueOf(tfdaterec.getValue()),tfetat.getText());
@@ -167,6 +185,7 @@ public class AfficheReclamationController implements Initializable {
         } catch (Exception e) {
 JOptionPane.showMessageDialog(null, "error : "+e.getMessage());
         }
+          }
         
     }
     
