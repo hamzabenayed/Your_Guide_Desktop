@@ -15,6 +15,8 @@ public class Reclamation {
     private int id;
     private String type,description,etat;
     private Date date_rec;
+
+
     
     public Reclamation() {
     }
@@ -47,7 +49,7 @@ public class Reclamation {
         this.id = id;
         this.date_rec = date_rec;
     }
-    
+
     
 
     public int getId() {

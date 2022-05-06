@@ -91,4 +91,24 @@ public class LikesService {
           return ListR ;
     }
     
+    public List<Likes> afficherByNote() {
+        List<Likes> reclamations = new ArrayList<>();
+        
+        try {
+            String req = "SELECT * FROM `like` order by note";
+            st = cn.createStatement();
+            ResultSet rst = st.executeQuery(req);
+           
+            while (rst.next()) {
+                 Likes t = new Likes(rst.getInt("id"),rst.getInt("commentaire_id"),rst.getString("nom_like"),rst.getInt("rate"),rst.getInt("note"));
+                reclamations.add(t);   
+            }
+           
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+                
+        return reclamations;
+    } 
+    
 }

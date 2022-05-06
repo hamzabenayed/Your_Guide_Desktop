@@ -7,6 +7,8 @@ package Services;
 import entities.Reclamation;
 import Utils.MyDB;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -92,5 +94,61 @@ public class ReclamationService {
           return ListR ;
     }
              
+    public List<Reclamation> afficherByDate(String type) {
+        List<Reclamation> reclamations = new ArrayList<>();
+        String req = "select * from reclamation where date_reclamation =?";
+        PreparedStatement preparedStatement;
+        try {
+            preparedStatement = cn.prepareStatement(req);
+            preparedStatement.setString(1,type);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                 Reclamation t = new Reclamation(resultSet.getInt("id"),resultSet.getString("type_reclamation"),resultSet.getString("desc_reclamation"),resultSet.getString("etat"),resultSet.getDate("date_reclamation"));
+                reclamations.add(t);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+                
+        return reclamations;
+    } 
     
+     public List<Reclamation> afficherByDate() {
+        List<Reclamation> reclamations = new ArrayList<>();
+        
+        try {
+            String req = "SELECT * FROM `reclamation` order by date_reclamation";
+            st = cn.createStatement();
+            ResultSet rst = st.executeQuery(req);
+           
+            while (rst.next()) {
+                 Reclamation t = new Reclamation(rst.getInt("id"),rst.getString("type_reclamation"),rst.getString("desc_reclamation"),rst.getString("etat"),rst.getDate("date_reclamation"));
+                reclamations.add(t);   
+            }
+           
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+                
+        return reclamations;
+    } 
+    /* public List<Reclamation> QueryByDate() {
+        List<Reclamation> reclamations = new ArrayList<>();
+        
+        try {
+      String sql_query = "select *" + "from reclamation" + "order by date_reclamation'"; 
+            st = cn.createStatement();
+            ResultSet rst = st.executeQuery(sql_query);
+           
+            while (rst.next()) {
+                 Reclamation t = new Reclamation(rst.getInt("id"),rst.getString("type_reclamation"),rst.getString("desc_reclamation"),rst.getString("etat"),rst.getDate("date_reclamation"));
+                reclamations.add(t);   
+            }
+           
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+                
+        return reclamations;
+    } */
 }

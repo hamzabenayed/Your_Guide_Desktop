@@ -33,7 +33,7 @@
             <Font name="Bauhaus 93" size="12.0" />
          </font></Label>
       <TextField fx:id="tfnote" layoutX="497.0" layoutY="84.0" prefHeight="25.0" prefWidth="53.0" />
-      <TableView fx:id="listl" layoutX="21.0" layoutY="125.0" onMouseClicked="#table_view_like_clicke" prefHeight="200.0" prefWidth="368.0">
+      <TableView fx:id="listl" layoutX="20.0" layoutY="153.0" onMouseClicked="#table_view_like_clicke" prefHeight="200.0" prefWidth="368.0">
         <columns>
           <TableColumn fx:id="id" prefWidth="75.0" text="id" />
           <TableColumn fx:id="nomlike" prefWidth="75.0" text="Nom_Like" />
@@ -42,15 +42,15 @@
             <TableColumn fx:id="note" prefWidth="75.0" text="Note" />
         </columns>
       </TableView>
-      <Button layoutX="70.0" layoutY="350.0" mnemonicParsing="false" onAction="#ajouter" style="-fx-background-color: green;" text="Ajouter">
+      <Button layoutX="32.0" layoutY="361.0" mnemonicParsing="false" onAction="#ajouter" style="-fx-background-color: green;" text="Ajouter">
          <font>
             <Font name="Bauhaus 93" size="12.0" />
          </font></Button>
-      <Button fx:id="supprimerl" layoutX="170.0" layoutY="350.0" mnemonicParsing="false" onAction="#supprimer" style="-fx-background-color: red;" text="Supprimer">
+      <Button fx:id="supprimerl" layoutX="110.0" layoutY="361.0" mnemonicParsing="false" onAction="#supprimer" style="-fx-background-color: red;" text="Supprimer">
          <font>
             <Font name="Bauhaus 93" size="12.0" />
          </font></Button>
-      <Button layoutX="263.0" layoutY="350.0" mnemonicParsing="false" onAction="#miseajour" text="Mise a jour">
+      <Button layoutX="195.0" layoutY="361.0" mnemonicParsing="false" onAction="#miseajour" text="Mise a jour">
          <font>
             <Font name="Bauhaus 93" size="12.0" />
          </font></Button>
@@ -64,5 +64,7 @@
             <Image url="@../image/téléchargement%20(2).png" />
          </image>
       </ImageView>
+      <Button layoutX="294.0" layoutY="360.0" mnemonicParsing="false" onAction="#tribynote" style="-fx-background-color: yellow;" text="Trier" />
+      <TextField fx:id="filterField" alignment="CENTER" layoutX="22.0" layoutY="124.0" prefHeight="25.0" prefWidth="368.0" promptText="Search" />
    </children>
 </AnchorPane>

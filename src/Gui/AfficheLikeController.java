@@ -10,6 +10,7 @@ import Services.LikesService;
 import Utils.MyDB;
 import entities.Commentaire;
 import entities.Likes;
+import entities.Reclamation;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -24,6 +25,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,6 +73,8 @@ public class AfficheLikeController implements Initializable {
     private TableColumn<Likes, Integer> note;
     @FXML
     private Button supprimerl;
+    @FXML
+    private TextField filterField;
 
     /**
      * Initializes the controller class.
@@ -87,6 +92,49 @@ public class AfficheLikeController implements Initializable {
         comm.setCellValueFactory(new PropertyValueFactory<>("com"));
 
         afficherCommentaireDesc();
+        
+        FilteredList<Likes> filteredData = new FilteredList<>(list, b -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(likes -> {
+				// If filter text is empty, display all persons.
+								
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (likes.getNom_like().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true; // Filter matches first name.
+				} else if (String.valueOf(likes.getRate()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(likes.getNote()).indexOf(lowerCaseFilter)!=-1){
+                                    
+                                
+				     return true;
+                                }else if (String.valueOf(likes.getCom()).indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }else if (String.valueOf(likes.getId()).toLowerCase().indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }
+				     else  
+				    	 return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Likes> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(listl.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+		listl.setItems(sortedData);
 
 
     }    
@@ -132,6 +180,50 @@ public class AfficheLikeController implements Initializable {
         note.setCellValueFactory(new PropertyValueFactory<>("note"));
         rate.setCellValueFactory(new PropertyValueFactory<>("rate"));
         comm.setCellValueFactory(new PropertyValueFactory<>("com"));
+        
+         FilteredList<Likes> filteredData = new FilteredList<>(list, b -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(likes -> {
+				// If filter text is empty, display all persons.
+								
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (likes.getNom_like().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true; // Filter matches first name.
+				} else if (String.valueOf(likes.getRate()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(likes.getNote()).indexOf(lowerCaseFilter)!=-1){
+                                    
+                                
+				     return true;
+                                }else if (String.valueOf(likes.getCom()).indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }else if (String.valueOf(likes.getId()).toLowerCase().indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }
+				     else  
+				    	 return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Likes> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(listl.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+		listl.setItems(sortedData);
+
         }
         catch (Exception e)
         {
@@ -175,6 +267,50 @@ public class AfficheLikeController implements Initializable {
         rate.setCellValueFactory(new PropertyValueFactory<>("rate"));
         nomlike.setCellValueFactory(new PropertyValueFactory<>("nom_like"));
         comm.setCellValueFactory(new PropertyValueFactory<>("com"));
+        
+         FilteredList<Likes> filteredData = new FilteredList<>(list, b -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(likes -> {
+				// If filter text is empty, display all persons.
+								
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (likes.getNom_like().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true; // Filter matches first name.
+				} else if (String.valueOf(likes.getRate()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(likes.getNote()).indexOf(lowerCaseFilter)!=-1){
+                                    
+                                
+				     return true;
+                                }else if (String.valueOf(likes.getCom()).indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }else if (String.valueOf(likes.getId()).toLowerCase().indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }
+				     else  
+				    	 return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Likes> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(listl.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+		listl.setItems(sortedData);
+
 
         }   
         
@@ -216,6 +352,50 @@ public class AfficheLikeController implements Initializable {
         rate.setCellValueFactory(new PropertyValueFactory<>("rate"));
         nomlike.setCellValueFactory(new PropertyValueFactory<>("nom_like"));
         comm.setCellValueFactory(new PropertyValueFactory<>("com"));
+        
+         FilteredList<Likes> filteredData = new FilteredList<>(list, b -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(likes -> {
+				// If filter text is empty, display all persons.
+								
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (likes.getNom_like().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true; // Filter matches first name.
+				} else if (String.valueOf(likes.getRate()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(likes.getNote()).indexOf(lowerCaseFilter)!=-1){
+                                    
+                                
+				     return true;
+                                }else if (String.valueOf(likes.getCom()).indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }else if (String.valueOf(likes.getId()).toLowerCase().indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }
+				     else  
+				    	 return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Likes> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(listl.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+		listl.setItems(sortedData);
+
 
         }
         catch (Exception e)
@@ -249,6 +429,64 @@ JOptionPane.showMessageDialog(null, "error : "+e.getMessage());
             descComm.add(fcts.get(i).getDesc_comm());
         }
        tfcom.setItems(descComm); //pour remplir le combo box   
+    }
+
+    @FXML
+    private void tribynote(ActionEvent event) {
+         LikesService ts = new LikesService();
+                    
+        List <Likes> likes = ts.afficherByNote();
+        ObservableList list = FXCollections.observableArrayList(likes);
+       listl.setItems(list);
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        note.setCellValueFactory(new PropertyValueFactory<>("note"));
+        rate.setCellValueFactory(new PropertyValueFactory<>("rate"));
+        nomlike.setCellValueFactory(new PropertyValueFactory<>("nom_like"));
+        comm.setCellValueFactory(new PropertyValueFactory<>("com"));
+        
+         FilteredList<Likes> filteredData = new FilteredList<>(list, b -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(likess -> {
+				// If filter text is empty, display all persons.
+								
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (likess.getNom_like().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true; // Filter matches first name.
+				} else if (String.valueOf(likess.getRate()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(likess.getNote()).indexOf(lowerCaseFilter)!=-1){
+                                    
+                                
+				     return true;
+                                }else if (String.valueOf(likess.getCom()).indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }else if (String.valueOf(likess.getId()).toLowerCase().indexOf(lowerCaseFilter)!=-1){
+                                    return true;
+                                }
+				     else  
+				    	 return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Likes> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(listl.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+		listl.setItems(sortedData);
+
     }
     
 }

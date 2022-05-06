@@ -21,20 +21,17 @@ import javafx.stage.Stage;
  * @author asus
  */
 public class DesktopFXMain extends Application {
-    Stage stage;
+    //Stage stage;
     
-    @Override
-    public void start(Stage primaryStage) {
-        this.stage = primaryStage;
-        try {
-            Parent parent = FXMLLoader.load(getClass().getResource("/Gui/AfficheCommentaire.fxml"));
-            Scene scene = new Scene(parent);
-            stage.setScene(scene);
-            stage.show();
-       
-        }catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+   @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/Gui/AfficheReclamation.fxml"));
+        
+        Scene scene = new Scene(root);
+        
+        stage.setTitle("JavaFX Geocode Example");
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**

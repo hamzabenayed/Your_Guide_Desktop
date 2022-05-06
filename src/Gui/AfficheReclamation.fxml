@@ -13,13 +13,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.AfficheReclamationController">
    <children>
-      <TableView fx:id="listrec" layoutX="49.0" layoutY="110.0" onMouseClicked="#table_view_reclamation_clicke" prefHeight="238.0" prefWidth="457.0">
+      <TableView fx:id="listrec" layoutX="49.0" layoutY="139.0" onMouseClicked="#table_view_reclamation_clicke" prefHeight="209.0" prefWidth="457.0">
         <columns>
           <TableColumn fx:id="id" prefWidth="75.0" text="id" />
           <TableColumn fx:id="DateRec" prefWidth="75.0" text="Date_Rec" />
-            <TableColumn fx:id="TypeRec" prefWidth="75.0" text="Type_Rec" />
-            <TableColumn fx:id="DescRec" prefWidth="75.0" text="Desc_Rec" />
-            <TableColumn fx:id="Etat" prefWidth="75.0" text="Etat" />
+            <TableColumn fx:id="TypeRec" prefWidth="106.0" text="Type_Rec" />
+            <TableColumn fx:id="DescRec" prefWidth="110.0" text="Desc_Rec" />
+            <TableColumn fx:id="Etat" prefWidth="90.0" text="Etat" />
         </columns>
       </TableView>
       <Button layoutX="57.0" layoutY="358.0" mnemonicParsing="false" onAction="#ajouter" style="-fx-background-color: green;" text="Ajouter">
@@ -53,5 +53,18 @@
             <Image url="@../image/images%20(1).png" />
          </image>
       </ImageView>
+      <Button layoutX="306.0" layoutY="357.0" mnemonicParsing="false" onAction="#triByDate" prefHeight="25.0" prefWidth="69.0" style="-fx-background-color: orange;" text="Trier">
+         <font>
+            <Font name="Bauhaus 93" size="12.0" />
+         </font></Button>
+      <Button layoutX="394.0" layoutY="357.0" mnemonicParsing="false" onAction="#weather" style="-fx-background-color: blue;" text="Méteo">
+         <font>
+            <Font name="Bauhaus 93" size="12.0" />
+         </font></Button>
+      <Button layoutX="462.0" layoutY="357.0" mnemonicParsing="false" onAction="#rating" text="Rating">
+         <font>
+            <Font name="Bauhaus 93" size="12.0" />
+         </font></Button>
+      <TextField fx:id="filterField" alignment="TOP_CENTER" layoutX="47.0" layoutY="107.0" prefHeight="25.0" prefWidth="457.0" promptText="Search" />
    </children>
 </AnchorPane>

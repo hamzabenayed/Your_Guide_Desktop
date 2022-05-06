@@ -21,10 +21,13 @@ public class Desktop {
      */
     public static void main(String[] args) throws SQLException {
         ReclamationService ps = new ReclamationService();
-        Reclamation r1 = new Reclamation("okok","bonne",Date.valueOf("2022-02-02"),"traité"); // TODO code application logic here
+      // System.out.println( ps.());
+        //Reclamation r1 = new Reclamation("okok","bonne",Date.valueOf("2022-02-02"),"traité"); // TODO code application logic here
         //ps.ajoutReclamation(r1);
-        System.out.println(ps.listerReclamation());
+        //System.out.println(ps.RechercheByType("benayed"));
      //  ps.updateReclamation(r1,10);
+          // ps.RechercheByType("hamza");
+
        // System.out.println("Reclamation ajouté");
         // System.out.println(ps.ajoutReclamation().toString());
     }

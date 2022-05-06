@@ -8,6 +8,7 @@ package Gui;
 import Services.CommentaireService;
 import Utils.MyDB;
 import entities.Commentaire;
+import entities.Reclamation;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,6 +24,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,8 +39,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javax.swing.JOptionPane;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -59,6 +65,10 @@ public class AfficheCommentaireController implements Initializable {
     private Button supprimerc;
     @FXML
     private DatePicker tfdatecomm;
+    @FXML
+    private TextField filterField;
+    @FXML
+    private Label label;
 
    
    
@@ -76,6 +86,46 @@ public class AfficheCommentaireController implements Initializable {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         desccomm.setCellValueFactory(new PropertyValueFactory<>("desc_comm"));
         datecomm.setCellValueFactory(new PropertyValueFactory<>("date_comm"));
+        
+         FilteredList<Commentaire> filteredData = new FilteredList<>(list, b -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(commentaire -> {
+				// If filter text is empty, display all persons.
+								
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (commentaire.getDesc_comm().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true; // Filter matches first name.
+				} else if (String.valueOf(commentaire.getDate_comm()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(commentaire.getId()).indexOf(lowerCaseFilter)!=-1){
+                                    
+                                
+				     return true;
+                                }
+                               
+				     else  
+				    	 return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Commentaire> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(listcomm.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+		listcomm.setItems(sortedData);
         
     }    
 
@@ -105,6 +155,46 @@ public class AfficheCommentaireController implements Initializable {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         desccomm.setCellValueFactory(new PropertyValueFactory<>("desc_comm"));
         datecomm.setCellValueFactory(new PropertyValueFactory<>("date_comm"));
+        
+        FilteredList<Commentaire> filteredData = new FilteredList<>(list, b -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(commentaire -> {
+				// If filter text is empty, display all persons.
+								
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (commentaire.getDesc_comm().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true; // Filter matches first name.
+				} else if (String.valueOf(commentaire.getDate_comm()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(commentaire.getId()).indexOf(lowerCaseFilter)!=-1){
+                                    
+                                
+				     return true;
+                                }
+                               
+				     else  
+				    	 return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Commentaire> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(listcomm.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+		listcomm.setItems(sortedData);
 
         }
         catch (Exception e)
@@ -115,6 +205,11 @@ public class AfficheCommentaireController implements Initializable {
             alert.setTitle("Succes");
             alert.setContentText("Commentaire ajoutee");
             alert.show();
+            Notifications notifications=Notifications.create();
+        notifications.text(" commentaire ajoutée");
+        notifications.title("Success Message");
+        notifications.darkStyle();
+        notifications.show();
             
             tfdesccomm.setText("");
             tfdatecomm.setValue(null);
@@ -125,7 +220,9 @@ public class AfficheCommentaireController implements Initializable {
          JOptionPane.showMessageDialog(null, "error : "+e.getMessage());
         }
         
-          }     
+          }   
+          
+        
       
     }
     
@@ -149,6 +246,51 @@ public class AfficheCommentaireController implements Initializable {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         desccomm.setCellValueFactory(new PropertyValueFactory<>("desc_comm"));
         datecomm.setCellValueFactory(new PropertyValueFactory<>("date_comm"));
+        
+        FilteredList<Commentaire> filteredData = new FilteredList<>(list, b -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(commentaire -> {
+				// If filter text is empty, display all persons.
+								
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (commentaire.getDesc_comm().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true; // Filter matches first name.
+				} else if (String.valueOf(commentaire.getDate_comm()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(commentaire.getId()).indexOf(lowerCaseFilter)!=-1){
+                                    
+                                
+				     return true;
+                                }
+                               
+				     else  
+				    	 return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Commentaire> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(listcomm.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+		listcomm.setItems(sortedData);
+                 Notifications notifications=Notifications.create();
+        notifications.text(" Commentaire supprimée");
+        notifications.title("Success Message");
+        notifications.darkStyle();
+        notifications.show();
         }   
         
         catch (Exception e)
@@ -182,6 +324,46 @@ public class AfficheCommentaireController implements Initializable {
          id.setCellValueFactory(new PropertyValueFactory<>("id"));
          desccomm.setCellValueFactory(new PropertyValueFactory<>("desc_comm"));
          datecomm.setCellValueFactory(new PropertyValueFactory<>("date_comm"));
+         
+         FilteredList<Commentaire> filteredData = new FilteredList<>(list, b -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(commentaire -> {
+				// If filter text is empty, display all persons.
+								
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (commentaire.getDesc_comm().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true; // Filter matches first name.
+				} else if (String.valueOf(commentaire.getDate_comm()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches last name.
+				}
+				else if (String.valueOf(commentaire.getId()).indexOf(lowerCaseFilter)!=-1){
+                                    
+                                
+				     return true;
+                                }
+                               
+				     else  
+				    	 return false; // Does not match.
+			});
+		});
+		
+		// 3. Wrap the FilteredList in a SortedList. 
+		SortedList<Commentaire> sortedData = new SortedList<>(filteredData);
+		
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		// 	  Otherwise, sorting the TableView would have no effect.
+		sortedData.comparatorProperty().bind(listcomm.comparatorProperty());
+		
+		// 5. Add sorted (and filtered) data to the table.
+		listcomm.setItems(sortedData);
         
         }
         catch (Exception e)
@@ -192,6 +374,11 @@ public class AfficheCommentaireController implements Initializable {
             alert.setTitle("Succes");
             alert.setContentText("Commentaire modifiée");
             alert.show();
+             Notifications notifications=Notifications.create();
+        notifications.text(" Commentaire  modifiée");
+        notifications.title("Success Message");
+        notifications.darkStyle();
+        notifications.show();
             
              
             tfdesccomm.setText("");
@@ -209,6 +396,17 @@ JOptionPane.showMessageDialog(null, "error : "+e.getMessage());
             System.out.println("Clicked : "+listcomm.getSelectionModel().getSelectedItem().getId());
             tfdatecomm.setValue(LocalDate.now());
             tfdesccomm.setText(listcomm.getSelectionModel().getSelectedItem().getDesc_comm()+"");
+    }
+
+    @FXML
+    private void weather(ActionEvent event) {
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Weather.fxml"));
+            Parent root = loader.load();
+            label.getScene().setRoot(root);
+        } catch (IOException ex) {
+            Logger.getLogger(WeatherController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
