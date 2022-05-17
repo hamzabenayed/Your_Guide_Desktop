@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.WeatherController">
+   <children>
+      <TextField fx:id="cityInput" layoutX="184.0" layoutY="156.0" />
+      <Button layoutX="349.0" layoutY="156.0" mnemonicParsing="false" onAction="#getWeatherData" text="Search" />
+      <Label layoutX="113.0" layoutY="39.0" text="Today's Weather ">
+         <font>
+            <Font name="Bauhaus 93" size="47.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="weatherText" layoutX="75.0" layoutY="212.0" prefHeight="102.0" prefWidth="285.0" />
+      <Button layoutX="360.0" layoutY="341.0" mnemonicParsing="false" onAction="#submit" text="SubmitRec" />
+      <Label fx:id="msg" layoutX="505.0" layoutY="14.0" />
+      <Button layoutX="444.0" layoutY="341.0" mnemonicParsing="false" onAction="#submitcomm" text="SubmitCom" />
+   </children>
+</AnchorPane>

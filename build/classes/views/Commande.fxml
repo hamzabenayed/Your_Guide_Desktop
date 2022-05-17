@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="718.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.CommandeController">
+   <children>
+      
+      <HBox fx:id="hbox" layoutX="52.0" layoutY="90.0" prefHeight="538.0" prefWidth="1081.0" style="-fx-background-color: transparent;" stylesheets="@../../../../../../NetBeansProjects/Aura_PiDev/AuraJava/Aura/src/Aura/Style.css">
+         <children>
+            <ScrollPane fx:id="scroll_obj" prefHeight="538.0" prefWidth="1002.0" style="-fx-background-color: transparent;">
+               <content>
+                  <GridPane fx:id="grid_obj" prefHeight="10.0" prefWidth="13.0" style="-fx-background-color: transparent;">
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+      <Label layoutX="381.0" layoutY="27.0" prefHeight="62.0" prefWidth="258.0" text="Vos commandes :" textAlignment="CENTER">
+         <font>
+            <Font name="Bernard MT Condensed" size="35.0" />
+         </font>
+      </Label>
+      <Button fx:id="retour" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
+      <Button fx:id="commander" layoutX="837.0" layoutY="58.0" mnemonicParsing="false" onAction="#commander" text="Commander" />
+      <Button fx:id="pdfCommandes" layoutX="163.0" layoutY="668.0" mnemonicParsing="false" onAction="#pdfCommandes" prefHeight="26.0" prefWidth="120.0" text="PDF" />
+   </children>
+</AnchorPane>
